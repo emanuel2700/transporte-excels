@@ -35,3 +35,4 @@ pgdata/
 .DS_Store
 .idea/
 .vscode/
+.vercel/

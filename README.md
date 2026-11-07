@@ -92,6 +92,17 @@ Si cambiaste `WEB_PORT`, utiliza ese puerto. Ingresa, por ejemplo, usuario `oper
 
 Los archivos de ejemplo contienen datos ficticios. No se deben subir CSV reales, documentos personales ni respaldos a Git.
 
+## Desplegar el frontend en Vercel
+
+El frontend usa rutas relativas `/api/...`. `frontend/vercel.json` reenvía esas peticiones a `https://transporte-excels.onrender.com`, de modo que el navegador mantiene un mismo origen para la interfaz y la API. Esto permite usar la sesión por cookie sin abrir CORS en el backend. Las respuestas de la API llevan `Cache-Control: no-store` porque incluyen información de los registros.
+
+1. En Vercel, importa este repositorio desde GitHub y selecciona la rama `master`.
+2. Configura **Root Directory** en `frontend` y usa el preset **Vite**.
+3. Vercel detectará `npm run build` y la carpeta de salida `dist`; confirma esos valores si te los solicita.
+4. Despliega y revisa `https://TU-PROYECTO.vercel.app/api/health`. La respuesta debe ser `{"status":"ok"}`.
+
+Si cambia el dominio público de Render, actualiza el destino de `frontend/vercel.json` y vuelve a desplegar. En Render mantén `SESSION_COOKIE_SECURE=true` para que el navegador acepte la cookie de sesión en HTTPS.
+
 ## Funcionalidades y reglas
 
 - Listados paginados de multas y pagos, búsqueda y filtros.
