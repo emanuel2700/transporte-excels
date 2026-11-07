@@ -92,6 +92,20 @@ Si cambiaste `WEB_PORT`, utiliza ese puerto. Ingresa, por ejemplo, usuario `oper
 
 Los archivos de ejemplo contienen datos ficticios. No se deben subir CSV reales, documentos personales ni respaldos a Git.
 
+### Más archivos CSV para practicar
+
+Los siguientes ejemplos tienen varias filas y amplían los casos de prueba:
+
+| Archivo | Filas | Configuración y qué permite revisar |
+|---|---:|---|
+| `examples/csv/multas_lote.csv` | 12 | Multas nuevas para probar una carga por lote. Se puede importar antes de `pagos_lote.csv`. |
+| `examples/csv/pagos_lote.csv` | 13 | Pagos parciales, pagos completos y varios abonos para una misma multa. Requiere importar primero `multas_lote.csv`. |
+| `examples/csv/multas_formato_regional.csv` | 8 | CSV con punto y coma, fechas `DD/MM/AAAA` y decimal con coma. Selecciona esos tres formatos en la pantalla de importación. |
+| `examples/csv/multas_con_advertencias.csv` | 6 | Descripciones vacías y estados declarados `PARCIAL`/`PAGADA` que se comparan con el estado calculado. |
+| `examples/csv/pagos_con_errores.csv` | 8 | Multa inexistente, DNI distinto, método inválido, sobrepago, fecha futura y comprobante repetido. Necesita algunas multas de `multas_lote.csv` para revisar los errores de negocio. |
+
+Usa el primer grupo en una base de pruebas nueva. Si vuelves a importar registros que ya existen, el sistema los identificará como duplicados y los excluirá según sus reglas.
+
 ## Desplegar el frontend en Vercel
 
 El frontend usa rutas relativas `/api/...`. `frontend/vercel.json` reenvía esas peticiones a `https://transporte-excels.onrender.com`, de modo que el navegador mantiene un mismo origen para la interfaz y la API. Esto permite usar la sesión por cookie sin abrir CORS en el backend. Las respuestas de la API llevan `Cache-Control: no-store` porque incluyen información de los registros.
