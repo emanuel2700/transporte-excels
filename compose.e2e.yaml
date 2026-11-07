@@ -1,0 +1,36 @@
+# Entorno independiente y desechable para pruebas en navegador.
+name: transporte-excels-e2e
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: transporte_e2e_test
+      POSTGRES_USER: e2e
+      POSTGRES_PASSWORD: e2e_only
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U e2e -d transporte_e2e_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  api:
+    image: transporte-excels-api
+    environment:
+      DATABASE_URL: postgresql+psycopg://e2e:e2e_only@db:5432/transporte_e2e_test
+      SESSION_SECRET: sesion-solo-para-pruebas-e2e-locales
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 3s
+      timeout: 4s
+      retries: 20
+  web:
+    image: transporte-excels-web
+    ports:
+      - "127.0.0.1:18080:80"
+    depends_on:
+      api:
+        condition: service_healthy

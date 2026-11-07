@@ -1,0 +1,37 @@
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+.agents/
+.codex/
+.aws/
+
+# Dependencias y resultados
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.tsbuildinfo
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+test-results/
+playwright-report/
+*.log
+
+# Datos reales y copias locales (solo fixtures ficticios versionados)
+*.csv
+!examples/csv/*.csv
+!backend/tests/fixtures/*.csv
+uploads/
+backups/
+*.dump
+*.sql
+pgdata/
+.DS_Store
+.idea/
+.vscode/

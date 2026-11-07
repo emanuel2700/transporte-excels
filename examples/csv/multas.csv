@@ -1,0 +1,3 @@
+codigo_multa,dni_infractor,tipo_infraccion,descripcion,fecha_infraccion,lugar_infraccion,monto,estado_multa,fecha_vencimiento,fecha_registro
+MUL-00000000000001,01234567,EXCESO_VELOCIDAD,Ejemplo ficticio de exceso de velocidad,2025-01-10,Av. Ejemplo cuadra 1,300.00,PENDIENTE,2025-02-15,2025-01-12
+MUL-00000000000002,12345678,ESTACIONAMIENTO_INDEBIDO,Ejemplo ficticio de estacionamiento,2025-01-11,Jr. Demostración cuadra 2,150.00,PENDIENTE,2025-02-15,2025-01-12

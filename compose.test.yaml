@@ -1,0 +1,29 @@
+services:
+  db-test:
+    image: postgres:16-alpine
+    profiles: [test]
+    environment:
+      POSTGRES_DB: transporte_test
+      POSTGRES_USER: transporte_test
+      POSTGRES_PASSWORD: test_only
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U transporte_test -d transporte_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  tests:
+    profiles: [test]
+    build:
+      context: ./backend
+      target: test
+    environment:
+      DATABASE_URL: postgresql+psycopg://transporte_test:test_only@db-test:5432/transporte_test
+      TEST_DATABASE_URL: postgresql+psycopg://transporte_test:test_only@db-test:5432/transporte_test
+      SESSION_SECRET: clave-de-sesion-solo-para-pruebas-automatizadas
+      TZ: America/Lima
+    depends_on:
+      db-test:
+        condition: service_healthy

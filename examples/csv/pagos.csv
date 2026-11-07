@@ -1,0 +1,3 @@
+codigo_multa,fecha_pago,monto_pagado,metodo_pago,numero_comprobante,dni_infractor
+MUL-00000000000001,2025-01-15,100.00,TRANSFERENCIA,DEMO-0001,01234567
+MUL-00000000000002,2025-01-16,150.00,EFECTIVO,DEMO-0002,12345678
